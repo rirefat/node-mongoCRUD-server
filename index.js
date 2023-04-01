@@ -4,18 +4,20 @@ const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 5000;
 
+// For Dot ENV variables
+require('dotenv').config();
+
 // Middleware
 app.use(cors());
 app.use(express.json());
 
-// Database access information
-// name: dbUser4 pass: 5ByqL9HCIovMbr6i
-// name: dbUser1 pass: IYENMvUs3govSFFa
+const userID = process.env.DB_USER;
+const userPass = process.env.DB_PASS;
 
 
 // ===========================================================================================================================
 
-const uri = "mongodb+srv://dbUser1:IYENMvUs3govSFFa@cluster0.3sgpu1h.mongodb.net/?retryWrites=true&w=majority";
+const uri = `mongodb+srv://${userID}:${userPass}@cluster0.3sgpu1h.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 async function run() {
     try {
